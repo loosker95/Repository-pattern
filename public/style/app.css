@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz@6..72&display=swap');
+
+body {
+    font-family: 'Newsreader', Arial, sans-serif;
+}
+
+.container {
+    margin-top: 20px;
+}
+.headerPage{
+    background-color: #F6F8F7; 
+    height:200px; 
+    padding: 30px;
+    margin-bottom: 10px;
+}
+.title a{
+    text-decoration: none;
+    color: black;
+}
+
+.btn, a{
+    text-decoration: none;
+}
