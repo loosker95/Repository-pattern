@@ -37,10 +37,10 @@ class PostRepository
 
     public function addPost(CreateRequest $request)
     {
-        $request->safe()->except('title');
+        $user = User::inRandomOrder()->first();
         DB::table('posts')->insert([
-            'user_id' => User::inRandomOrder()->first()->id,
-            'author' => 'Github: loosker95',
+            'user_id' =>  $user->id,
+            'author' =>  $user->name,
             'summary' => $request->summary,
             'title' => $request->title,
             'body' => $request->body,
