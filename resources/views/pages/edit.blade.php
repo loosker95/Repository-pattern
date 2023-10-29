@@ -17,13 +17,13 @@
             <label for="Input1" class="form-label">Title</label>
             <input type="text" class="form-control" name="title" id="Input1" value="{{ $post->title }}">
         </div>
-        <div class="mb-3">
+        <div class="mb-3 summary">
             <label for="summary" class="form-label">Summary</label>
             <textarea class="form-control" id="summary" name="summary" placeholder="summary" rows="3">{{ $post->summary }}</textarea>
         </div>
-        <div class="mb-3">
-            <label for="Textarea1" class="form-label">Body</label>
-            <textarea class="form-control" id="Textarea1" name="body" placeholder="body" rows="10">{{ $post->body }}</textarea>
+        <div class="mb-3 body">
+            <label for="body" class="form-label">Body</label>
+            <textarea class="form-control" id="body" name="body" placeholder="body" rows="10">{{ $post->body }}</textarea>
         </div>
 
         <div class="d-grid gap-2">

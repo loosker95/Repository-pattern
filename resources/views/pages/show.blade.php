@@ -12,9 +12,9 @@
     @foreach ($data as $data)
         <h2>{{ $data->title }}</h2>
         <hr>
-        <h5 style="color: grey">Summary : -> <cite>{{ $data->summary }}</cite></h5>
+        <h5 style="color: grey">Summary : -> <cite>{{ strip_tags($data->summary) }}</cite></h5>
         <hr>
-        <h5 style="text-align: justify">{{ $data->body }}</h5>
+        <h5 style="text-align: justify">{{ strip_tags($data->body) }}</h5>
         <p>
             <b>Author</b> : <cite>{{ $data->author }}</cite>
         </p>
@@ -29,12 +29,12 @@
                 </h4>
                 <hr>
                 @foreach ($data['comments'] as $comment)
-                    <p style="background-color: #F6F8F7; padding:10px;">{{ $comment->content }}
+                    <div style="background-color: #F6F8F7; padding:10px;">{!! $comment->content !!}
                         <br>
                         <span class="d-flex justify-content-end">
                             <cite> {{ $comment->created_at->diffForHumans() }}</cite>
                         </span>
-                    </p>
+                    </div>
                     <hr>
                 @endforeach
             </div>
@@ -50,8 +50,8 @@
                 <form action="{{ route('add.comment', $data->id) }}" method="post">
                     @csrf
                     <div class="mb-3">
-                        <label for="Textarea1" class="form-label">Comment</label>
-                        <textarea class="form-control" id="Textarea1" name="content" placeholder="body" rows="3"></textarea>
+                        <label for="comment" class="form-label">Comment</label>
+                        <textarea class="form-control" id="comment" name="content" placeholder="body" rows="3"></textarea>
                     </div>
 
                     <div class="d-grid gap-2">

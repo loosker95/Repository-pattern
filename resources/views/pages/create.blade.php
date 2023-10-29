@@ -17,11 +17,11 @@
                     <label for="Input1" class="form-label">Title</label>
                     <input type="text" class="form-control" name="title" id="Input1" placeholder="title">
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 summary">
                     <label for="summary" class="form-label">Summary</label>
-                    <textarea class="form-control" id="summary" name="summary" placeholder="summary" rows="3"></textarea>
+                    <textarea class="form-control" id="summary" name="summary" placeholder="summary" height="300" rows="3"></textarea>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 body">
                     <label for="body" class="form-label">Body</label>
                     <textarea class="form-control" id="body" name="body" placeholder="body" rows="10"></textarea>
                 </div>
@@ -33,3 +33,12 @@
         </div>
     </div>
 @endsection
+<style>
+    .summary .ck-placeholder{
+        height: 70px;
+    }
+    .body .ck-placeholder{
+        height: 130px;
+    }
+</style>
+
