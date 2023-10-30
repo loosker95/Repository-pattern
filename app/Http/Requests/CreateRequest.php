@@ -28,7 +28,8 @@ class CreateRequest extends FormRequest
         ];
     }
 
-    public function messages(): array{
+    public function messages(): array
+    {
         return [
             'title.required' => 'The title is required',
             'summary.required' => 'The summary is required',

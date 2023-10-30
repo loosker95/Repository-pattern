@@ -34,8 +34,9 @@ class PostController extends Controller
         // return redirect()->back()->with('success', 'Post submit succesfully');
     }
 
-    public function show($id){
-        $data = $this->postRepoClass->getOne($id);
+    public function show($slug)
+    {
+        $data = $this->postRepoClass->getOne($slug);
         return view('pages.show')->with('data', $data);
     }
 
@@ -51,7 +52,8 @@ class PostController extends Controller
         return redirect()->back()->with('success', 'Post Updated succesfully');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $this->postRepoClass->toTrash($id);
         return redirect()->back()->with('success', 'Post Deleted succesfully');
     }

@@ -9,11 +9,12 @@
     @include('partials.successAlert')
 
     @forelse ($posts as $key => $post)
-        <h2 class="title"><a href="{{ route('show.post', $post->id) }}">{{ strip_tags($post->title) }}</a></h2>
+        <h2 class="title"><a href="{{ route('show.post', $post->slug) }}">{{ strip_tags($post->title) }}</a>
+        </h2>
         <h5>{{ strip_tags($post->summary) }}</h5>
         <span>
             <b>Author</b> : <cite>{{ $post->author }}</cite> -
-            <a type="submit" href="{{ route('show.post', $post->id) }}"
+            <a type="submit" href="{{ route('show.post', $post->slug) }}"
                 style="text-decoration: none">{{ $post['comments']->count() }}
                 {{ $post['comments']->count() != 1 ? 'Comments' : 'Comment' }}
             </a>

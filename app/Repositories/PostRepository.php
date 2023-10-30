@@ -3,10 +3,11 @@
 namespace App\Repositories;
 
 use DB;
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Comment;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Benchmark;
 use App\Http\Requests\CreateRequest;
 
@@ -14,22 +15,22 @@ class PostRepository
 {
     public function getAll()
     {
-        try{
+        try {
             // $data = DB::table('posts')->orderByDesc('id')->paginate(5);
             $data = Post::with('comments')->orderBy('id', 'desc')->paginate(10);
-            // Benchmark::dd(fn () => Post::with('comments')->orderBy('id', 'desc')->paginate(10)); 
+            // Benchmark::dd(fn () => Post::with('comments')->orderBy('id', 'desc')->paginate(10));
             return $data;
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function getOne($id){
-        $data = Post::with(['comments' => function($query){
+    public function getOne($slug)
+    {
+        $data = Post::with(['comments' => function ($query) {
             $query->orderBy('id', 'desc');
-        }])->where('posts.id', $id)->get();
-        if(!$data){
+        }])->where('posts.slug', $slug)->get();
+        if (!$data) {
             return abort(404);
         }
         return $data;
@@ -37,23 +38,18 @@ class PostRepository
 
     public function addPost(CreateRequest $request)
     {
-        $user = User::inRandomOrder()->first();
-        DB::table('posts')->insert([
-            'user_id' =>  $user->id,
-            'author' =>  $user->name,
-            'summary' => $request->summary,
-            'title' => $request->title,
-            'body' => $request->body,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        Post::create([
+            'user_id' => $this->getUserInfo()->id,
+            'author' => $this->getUserInfo()->name,
+            'slug' =>  $request->title
+        ] + $request->validated());
     }
 
     public function changeEdit($id)
     {
         $data = DB::table('posts')->where('id', $id)->first();
         if (!$data) {
-            return abort(404); 
+            return abort(404);
         }
         return $data;
     }
@@ -67,7 +63,13 @@ class PostRepository
         ]);
     }
 
-    public function toTrash($id){
+    public function toTrash($id)
+    {
         Post::where('id', $id)->with('comments')->delete();
+    }
+
+    private function getUserInfo()
+    {
+        return User::inRandomOrder()->first();
     }
 }
