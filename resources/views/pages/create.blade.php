@@ -34,11 +34,11 @@
     </div>
 @endsection
 <style>
-    .summary .ck-placeholder{
+    .summary .ck-placeholder {
         height: 70px;
     }
-    .body .ck-placeholder{
+
+    .body .ck-placeholder {
         height: 130px;
     }
 </style>
-
