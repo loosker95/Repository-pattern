@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateRequest;
-
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -40,9 +40,9 @@ class PostController extends Controller
         return view('pages.show')->with('data', $data);
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
-        $data = $this->postRepoClass->changeEdit($id);
+        $data = $this->postRepoClass->changeEdit($slug);
         return view('pages.edit')->with('post', $data);
     }
 

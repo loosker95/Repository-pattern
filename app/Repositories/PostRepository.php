@@ -2,10 +2,8 @@
 
 namespace App\Repositories;
 
-use DB;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Comment;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Benchmark;
@@ -20,7 +18,7 @@ class PostRepository
             $data = Post::with('comments')->orderBy('id', 'desc')->paginate(10);
             // Benchmark::dd(fn () => Post::with('comments')->orderBy('id', 'desc')->paginate(10));
             return $data;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $e->getMessage();
         }
     }
@@ -45,18 +43,14 @@ class PostRepository
         ] + $request->validated());
     }
 
-    public function changeEdit($id)
+    public function changeEdit($slug)
     {
-        $data = DB::table('posts')->where('id', $id)->first();
-        if (!$data) {
-            return abort(404);
-        }
-        return $data;
+        return Post::where('slug', $slug)->first();
     }
 
     public function infosUpdate(CreateRequest $request, $id)
     {
-        DB::table('posts')->where('id', $id)->update([
+        Post::where('id', $id)->update([
             'title' => $request->title,
             'summary' => $request->summary,
             'body' => $request->body,

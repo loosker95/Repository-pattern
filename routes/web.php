@@ -23,7 +23,7 @@ Route::controller(PostController::class)->group(function () {
 
     Route::get('/show/{slug}', 'show')->name('show.post');
 
-    Route::get('/post/{id}/edit', 'edit')->name('change.post');
+    Route::get('/post/{slug}/edit', 'edit')->name('change.post');
     Route::put('/update/{id}', 'update')->name('update.post');
 
     Route::delete('/remove/{id}', 'delete')->name('remove.post');
